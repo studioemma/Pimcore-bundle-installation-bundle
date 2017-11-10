@@ -28,12 +28,6 @@ composer require studioemma/Pimcore-bundle-installation-bundle:dev-master
 
 ## Usage
 
-Enable the bundle in your app/AppKernel.php
-
-~~~
-$collection->addBundle(new StudioEmma\BundleInstallationBundle\StudioEmmaBundleInstallationBundle());
-~~~
-
 Add the trait to your Installer class of the bundle
 
 ~~~
