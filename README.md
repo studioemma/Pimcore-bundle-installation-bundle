@@ -1,8 +1,8 @@
 # Pimcore BundleInstallationBundle
 
-This Bundle adds helper functions to allow easy installation of Pimcore Bundles.
+This Bundle adds helper methods to allow easy installation of Pimcore Bundles.
 
-## Included helper functions
+## Included helper methods
 
 * Installation of Class Definitions
 * Installation of Field Collections
@@ -24,4 +24,30 @@ unstable:
 
 ~~~
 composer require studioemma/Pimcore-bundle-installation-bundle:dev-master
+~~~
+
+## Usage
+
+Enable the bundle in your app/AppKernel.php
+
+~~~
+$collection->addBundle(new StudioEmma\BundleInstallationBundle\StudioEmmaBundleInstallationBundle());
+~~~
+
+Add the trait to your Installer class of the bundle
+
+~~~
+use BundleInstallationTrait;
+~~~
+
+Use the helper methods (ex.)
+
+~~~
+$this->installClassDefinition('Blog');
+$this->installFieldCollection('BlogComment');
+$this->installObjectBrick('BlogPostDetails');
+
+$this->createObjectFolderAndWebsiteSetting('/blog','object_folder_blogs');
+$this->createDocumentFolderAndWebsiteSetting('/blog','document_folder_posts');
+$this->createAssetFolderAndWebsiteSetting('/blog', 'asset_folder_blog');
 ~~~
