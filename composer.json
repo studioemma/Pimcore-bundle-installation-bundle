@@ -7,7 +7,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "StudioEmma\\BundleInstallationBundle": "src"
+            "StudioEmma\\BundleInstallationBundle\\": "src"
         }
     }
 }
