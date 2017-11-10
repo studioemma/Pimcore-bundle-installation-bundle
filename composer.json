@@ -1,0 +1,8 @@
+{
+    "name": "studioemma/bundle-installation-bundle",
+    "description": "This Bundle adds helper functions to allow easy installation of Pimcore Bundles.",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {}
+}
