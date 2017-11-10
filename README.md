@@ -51,3 +51,8 @@ $this->createObjectFolderAndWebsiteSetting('/blog','object_folder_blogs');
 $this->createDocumentFolderAndWebsiteSetting('/blog','document_folder_posts');
 $this->createAssetFolderAndWebsiteSetting('/blog', 'asset_folder_blog');
 ~~~
+
+
+To be able to install Class Definitions, FieldCollections and ObjectBricks,
+an export of the item needs to be added to your bundles "Resources/data" folder.
+It needs to be the same name as provided in the install* method.
