@@ -17,13 +17,13 @@ This Bundle adds helper methods to allow easy installation of Pimcore Bundles.
 stable:
 
 ~~~
-composer require studioemma/Pimcore-bundle-installation-bundle
+composer require studioemma/bundle-installation-bundle
 ~~~
 
 unstable:
 
 ~~~
-composer require studioemma/Pimcore-bundle-installation-bundle:dev-master
+composer require studioemma/bundle-installation-bundle:dev-master
 ~~~
 
 ## Usage
