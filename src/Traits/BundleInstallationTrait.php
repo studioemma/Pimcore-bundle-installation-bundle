@@ -6,7 +6,6 @@ namespace StudioEmma\BundleInstallationBundle\Traits;
 use Pimcore\HttpKernel\BundleLocator\NotFoundException;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\Fieldcollection;
-use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Objectbrick;
 use Pimcore\Model\WebsiteSetting;
 
@@ -126,7 +125,7 @@ trait BundleInstallationTrait
      *
      * @param string $folderPath
      * @param string $websiteSettingName
-     * @return Folder
+     * @return \Pimcore\Model\DataObject\Folder
      * @throws \Exception
      */
     public function createObjectFolderAndWebsiteSetting(string $folderPath, string $websiteSettingName): \Pimcore\Model\DataObject\Folder
@@ -196,7 +195,7 @@ trait BundleInstallationTrait
             $setting->setName($websiteSettingName);
         }
 
-        if (is_object($subject) || $subject instanceof Folder  || $subject instanceof \Pimcore\Model\Asset\Folder) {
+        if ($subject instanceof \Pimcore\Model\Element\AbstractElement) {
             $subject = $subject->getId();
         }
 
