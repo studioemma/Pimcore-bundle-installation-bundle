@@ -2,13 +2,6 @@
 
 namespace StudioEmma\BundleInstallationBundle\Traits;
 
-
-use Pimcore\HttpKernel\BundleLocator\NotFoundException;
-use Pimcore\Model\DataObject\ClassDefinition;
-use Pimcore\Model\DataObject\Fieldcollection;
-use Pimcore\Model\DataObject\Objectbrick;
-use Pimcore\Model\WebsiteSetting;
-
 /**
  * Trait BundleInstallationTrait
  * @package StudioEmma\BundleInstallationBundle\Traits
@@ -19,27 +12,27 @@ trait BundleInstallationTrait
      * Install a Data Object Class Definition
      *
      * @param string $className
-     * @return ClassDefinition
+     * @return \Pimcore\Model\DataObject\ClassDefinition
      * @throws \Exception
      */
-    public function installClassDefinition(string $className): ClassDefinition
+    public function installClassDefinition(string $className): \Pimcore\Model\DataObject\ClassDefinition
     {
-        $class = new ClassDefinition();
+        $class = new \Pimcore\Model\DataObject\ClassDefinition();
         $id = $class->getDao()->getIdByName($className);
         if ($id) {
-            $class =  ClassDefinition::getById($id);
+            $class =  \Pimcore\Model\DataObject\ClassDefinition::getById($id);
         } else {
             $class = null;
         }
 
-        if (!$class instanceof ClassDefinition) {
-            $class = new ClassDefinition();
+        if (!$class instanceof \Pimcore\Model\DataObject\ClassDefinition) {
+            $class = new \Pimcore\Model\DataObject\ClassDefinition();
             $class->setName($className);
             $class->save();
         }
 
         $json = $this->getDataFile($className, 'class');
-        ClassDefinition\Service::importClassDefinitionFromJson($class, $json);
+        \Pimcore\Model\DataObject\ClassDefinition\Service::importClassDefinitionFromJson($class, $json);
 
         return $class;
     }
@@ -48,19 +41,19 @@ trait BundleInstallationTrait
      * Install a Data Object FieldCollection
      *
      * @param string $fieldCollectionName
-     * @return Fieldcollection\Definition
+     * @return \Pimcore\Model\DataObject\Fieldcollection\Definition
      * @throws \Exception
      */
-    public function installFieldCollection(string $fieldCollectionName): Fieldcollection\Definition
+    public function installFieldCollection(string $fieldCollectionName): \Pimcore\Model\DataObject\Fieldcollection\Definition
     {
         try {
-            $fieldCollection = Fieldcollection\Definition::getByKey($fieldCollectionName);
+            $fieldCollection = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fieldCollectionName);
         } catch (\Exception $e) {
             $fieldCollection = null;
         }
 
-        if (!$fieldCollection instanceof Fieldcollection\Definition) {
-            $fieldCollection = new Fieldcollection\Definition();
+        if (!$fieldCollection instanceof \Pimcore\Model\DataObject\Fieldcollection\Definition) {
+            $fieldCollection = new \Pimcore\Model\DataObject\Fieldcollection\Definition();
             $fieldCollection->setKey($fieldCollectionName);
             $fieldCollection->save();
         }
@@ -75,19 +68,19 @@ trait BundleInstallationTrait
      * Install a Data Object ObjectBrick
      *
      * @param string $brickName
-     * @return Objectbrick\Definition
+     * @return \Pimcore\Model\DataObject\Objectbrick\Definition
      * @throws \Exception
      */
-    public function installObjectBrick(string $brickName): Objectbrick\Definition
+    public function installObjectBrick(string $brickName): \Pimcore\Model\DataObject\Objectbrick\Definition
     {
         try {
-            $objectBrick = Objectbrick\Definition::getByKey($brickName);
+            $objectBrick = \Pimcore\Model\DataObject\Objectbrick\Definition::getByKey($brickName);
         } catch (\Exception $e) {
             $objectBrick = null;
         }
 
-        if (!$objectBrick instanceof Objectbrick\Definition) {
-            $objectBrick = new Objectbrick\Definition();
+        if (!$objectBrick instanceof \Pimcore\Model\DataObject\Objectbrick\Definition) {
+            $objectBrick = new \Pimcore\Model\DataObject\Objectbrick\Definition();
             $objectBrick->setKey($brickName);
             $objectBrick->save();
         }
@@ -113,7 +106,7 @@ trait BundleInstallationTrait
             . $type . '_' . $name . '_export.json';
 
         if (!file_exists($path)) {
-            throw new NotFoundException(sprintf('Datafile "%s" not found for Bundle "%s"', $path,
+            throw new \Pimcore\HttpKernel\BundleLocator\NotFoundException(sprintf('Datafile "%s" not found for Bundle "%s"', $path,
                 $this->bundle->getName()));
         }
 
@@ -177,11 +170,11 @@ trait BundleInstallationTrait
      * @param string $websiteSettingName
      * @param string $type
      * @param $subject
-     * @return WebsiteSetting
+     * @return \Pimcore\Model\WebsiteSetting
      */
-    public function createWebsiteSetting(string $websiteSettingName, string $type, $subject): WebsiteSetting
+    public function createWebsiteSetting(string $websiteSettingName, string $type, $subject): \Pimcore\Model\WebsiteSetting
     {
-        $setting = new WebsiteSetting();
+        $setting = new \Pimcore\Model\WebsiteSetting();
 
         // We do this to avoid error logs in the cli output when the Website setting does not exist
         try {
@@ -191,7 +184,7 @@ trait BundleInstallationTrait
         }
 
         if (null === $setting) {
-            $setting = new WebsiteSetting();
+            $setting = new \Pimcore\Model\WebsiteSetting();
             $setting->setName($websiteSettingName);
         }
 
