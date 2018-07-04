@@ -196,7 +196,7 @@ trait BundleInstallationTrait
             $setting->setName($websiteSettingName);
         }
 
-        if (is_object($subject)) {
+        if (is_object($subject) || $subject instanceof Folder  || $subject instanceof \Pimcore\Model\Asset\Folder) {
             $subject = $subject->getId();
         }
 
