@@ -12,10 +12,17 @@ trait BundleInstallationTrait
      * Install a Data Object Class Definition
      *
      * @param string $className
+     * @param bool $ignoreId Ignore the class ID provided by the JSON file (default true when using this bundle)
+     * @param bool $throwException Flag to throw exception instead of logging errors
+     *
      * @return \Pimcore\Model\DataObject\ClassDefinition
      * @throws \Exception
      */
-    public function installClassDefinition(string $className): \Pimcore\Model\DataObject\ClassDefinition
+    public function installClassDefinition(
+        string $className,
+        bool $ignoreId = true,
+        bool $throwException = false
+    ): \Pimcore\Model\DataObject\ClassDefinition
     {
         $class = new \Pimcore\Model\DataObject\ClassDefinition();
         $id = $class->getDao()->getIdByName($className);
@@ -32,7 +39,7 @@ trait BundleInstallationTrait
         }
 
         $json = $this->getDataFile($className, 'class');
-        \Pimcore\Model\DataObject\ClassDefinition\Service::importClassDefinitionFromJson($class, $json);
+        \Pimcore\Model\DataObject\ClassDefinition\Service::importClassDefinitionFromJson($class, $json, $throwException, $ignoreId);
 
         return $class;
     }
