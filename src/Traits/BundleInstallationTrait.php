@@ -2,6 +2,8 @@
 
 namespace StudioEmma\BundleInstallationBundle\Traits;
 
+use Pimcore\Model\Exception\NotFoundException;
+
 /**
  * Trait BundleInstallationTrait
  * @package StudioEmma\BundleInstallationBundle\Traits
@@ -25,7 +27,12 @@ trait BundleInstallationTrait
     ): \Pimcore\Model\DataObject\ClassDefinition
     {
         $class = new \Pimcore\Model\DataObject\ClassDefinition();
-        $id = $class->getDao()->getIdByName($className);
+        try {
+            $id = $class->getDao()->getIdByName($className);
+        } catch (NotFoundException $e) {
+            $id = false;
+        }
+
         if ($id) {
             $class =  \Pimcore\Model\DataObject\ClassDefinition::getById($id);
         } else {
